@@ -10,6 +10,7 @@ define([
 
 		initialize: function(){
 			this.model = new Header();
+			console.log(" header view ::: ",this.model.isNew());
 			this.model.on("change", this.render, this);
 			this.model.fetch();
 		},
