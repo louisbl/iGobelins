@@ -1,0 +1,7 @@
+<% _.each(data, function(item){ %>
+	<h3><%= item.title %></h3>
+	<div>
+		<a href="<%= item.link %>">link</a>
+		<%= item.description %>
+	</div>
+<% }); %>

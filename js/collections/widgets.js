@@ -1,17 +1,23 @@
 define([
-  'Underscore',
-  'Backbone',
-  'models/widgetModel',
-  'services/AllWidgets'
-], function(_, Backbone, widgetModel, AllWidgetsSync){
+  'backbone',
+  'models/widget',
+  'services/all-widgets'
+], function( Backbone, WidgetModel, AllWidgetsSync){
   var WidgetCollection = Backbone.Collection.extend({
     parse : function(response){
-        console.log(response);
         if( response.success ){
             return response.widgets;
         }
     },
-    
+
+    initialize : function() {
+      this.on("destroy", this.onModelDestroy);
+    },
+
+    onModelDestroy: function(event) {
+      console.log(event);
+    },
+
     model:WidgetModel,
     
     sync: AllWidgetsSync

@@ -1,0 +1,12 @@
+<div class="ui-widget-content rss-widget">
+   	<h2><%= name %></h2>
+	<div class="accordion">
+   		<% _.each(data, function(item){ %>
+			<h3><%= item.title %></h3>
+			<div>
+				<a href="<%= item.link %>">link</a>
+				<%= item.description %>
+			</div>
+		<% }); %>
+	</div>
+</div>

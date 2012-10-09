@@ -1,21 +1,24 @@
 define([
-  'jQuery',
-  'Underscore',
-  'Backbone',
-  'views/widgets',
-], function($, _, Backbone, Session, widgetsView){
+  'backbone',
+  'views/widgets-list',
+], function( Backbone, WidgetsListView){
   var AppRouter = Backbone.Router.extend({
+    
     routes: {
-      '/widgets': 'showWidgets',
+      '': 'home',
 
       '*actions': 'defaultAction'
     },
-    showWidgets: function(){
-      widgetsView.render();
+    
+    home: function(actions){
+      console.log("home ::: ",actions);
+      WidgetsListView.render();
     },
+    
     defaultAction: function(actions){
       console.log('No route:', actions);
     }
+
   });
 
   var initialize = function(){

@@ -1,10 +1,8 @@
 define([
-  'Underscore',
-  'Backbone',
-  'consts',
-  'services/WevServer'
-], function(_, Backbone){
-	var AllWidgetsSync = function (method, model, options) {
+  'services/web-server',
+  'consts'
+], function(WebServSync){
+	 return function (method, model, options) {
     	switch(method){
         	case 'read':
             	options.data = "apiCall=loadUserWidgets";
@@ -12,6 +10,4 @@ define([
     	}
     	return WebServSync(options);
     }
-
-    return AllWidgetsSync;
 });

@@ -1,0 +1,8 @@
+<% _.each(data, function(item){ %>
+	<h3><%= item.title %></h3>
+	<div>
+		<img src="<%= item.thumbnails.thumbnail[0].content %>">
+		<a href="<%= item.url %>">link</a>
+		<p><%= item.content %></p>
+	</div>
+<% }); %>

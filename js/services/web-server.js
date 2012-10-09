@@ -1,10 +1,10 @@
 define([
-  'jQuery',
-  'Underscore',
-  'Backbone',
+  'jquery',
+  'underscore',
+  'backbone',
   'consts'
-], function(_, Backbone){
-	var WebServSync = function(options) {
+], function($,_, Backbone){
+	  return function(options) {
 		var params = { data : ""};
 
     	params.url      = apiURL;
@@ -14,6 +14,4 @@ define([
 
     	return $.ajax(_.extend(params,options));
     }
-
-    return WebServSync;
 });

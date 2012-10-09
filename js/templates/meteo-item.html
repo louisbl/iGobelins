@@ -1,0 +1,29 @@
+<% _.each(data.previsions, function(item){ %>
+	<h3><%= item.date %></h3>
+	<div>
+		<div class="block-meteo">
+			<h4>Matin</h4>
+			<img src="<%= item.pictos_matin %>" />
+			<p><%= item.namepictos_matin %></p>
+			<p><%= item.tempe_matin %></p>
+		</div>
+		<div class="block-meteo">
+			<h4>Midi</h4>
+			<img src="<%= item.pictos_midi %>" />
+			<p><%= item.namepictos_midi %></p>
+			<p><%= item.tempe_midi %></p>
+		</div>
+		<div class="block-meteo">
+			<h4>Après-midi</h4>
+			<img src="<%= item.pictos_apmidi %>" />
+			<p><%= item.namepictos_apmidi %></p>
+			<p><%= item.tempe_apmidi %></p>
+		</div>
+		<div class="block-meteo">
+			<h4>Soir</h4>
+			<img src="<%= item.pictos_soir %>" />
+			<p><%= item.namepictos_soir %></p>
+			<p><%= item.tempe_soir %></p>
+		</div>
+	</div>
+<% }); %>

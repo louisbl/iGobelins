@@ -1,25 +1,26 @@
-require.config({
-  paths: {
-    jQuery: 'vendor/jquery-min',
-    Underscore: 'vendor/underscore-min',
-    Backbone: 'vendor/backbone-min'
-  },
-  shim: {
-        'Backbone': {
-            //These script dependencies should be loaded before loading
-            //backbone.js
-            deps: ['Underscore', 'jQuery'],
-            //Once loaded, use the global 'Backbone' as the
-            //module value.
+requirejs.config({
+    paths: {
+        'jquery': 'vendor/jquery-min',
+        'jqueryui':'vendor/jquery-ui-min',
+        'underscore': 'vendor/underscore-min',
+        'backbone': 'vendor/backbone-min',
+        'text': 'vendor/text'
+    },
+
+    shim: {
+        'underscore' : {
+          exports: '_'
+        },
+
+        'backbone': {
+            deps: ['underscore'],
             exports: 'Backbone'
         }
-      }
+    }
 });
 
 require([
-
-  'app',
-
+  'app'
 ], function(App){
-  App.initialize();
+    App.initialize();
 });

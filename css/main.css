@@ -1,5 +1,5 @@
 
-@import url("ui-lightness/jquery-ui-1.8.24.custom.css");
+@import url("trontastic/jquery-ui-1.9.0.custom.css");
 
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
@@ -63,10 +63,17 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+.drop_col {
+    float: left;
+    width : 30%;
+    margin: 10px;
+    padding: 10px;
+}
 
-
-
-
+.block-meteo{
+    width: 25%;
+    float: left;
+}
 
 
 
