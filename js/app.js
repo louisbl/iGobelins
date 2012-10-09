@@ -1,6 +1,7 @@
 define([
   'router',
 ], function( Router){
+  
   var initialize = function(){
     Router.initialize();
   }
@@ -8,4 +9,5 @@ define([
   return {
     initialize: initialize
   };
+
 });

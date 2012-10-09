@@ -1,10 +1,10 @@
 requirejs.config({
     paths: {
-        'jquery': 'vendor/jquery-min',
-        'jqueryui':'vendor/jquery-ui-min',
-        'underscore': 'vendor/underscore-min',
-        'backbone': 'vendor/backbone-min',
-        'text': 'vendor/text'
+        'jquery'     : 'vendor/jquery-min',
+        'jqueryui'   : 'vendor/jquery-ui-min',
+        'underscore' : 'vendor/underscore-min',
+        'backbone'   : 'vendor/backbone-min',
+        'text'       : 'vendor/text'
     },
 
     shim: {
@@ -13,8 +13,8 @@ requirejs.config({
         },
 
         'backbone': {
-            deps: ['underscore'],
-            exports: 'Backbone'
+            deps    : ['underscore'],
+            exports : 'Backbone'
         }
     }
 });

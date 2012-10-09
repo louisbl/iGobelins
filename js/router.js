@@ -1,18 +1,18 @@
 define([
   'backbone',
-  'views/widgets-list',
-], function( Backbone, WidgetsListView){
+  'views/app-view',
+], function( Backbone, AppView){
+  
   var AppRouter = Backbone.Router.extend({
     
     routes: {
-      '': 'home',
-
-      '*actions': 'defaultAction'
+      ''         : 'home',
+      '*actions' : 'defaultAction'
     },
     
     home: function(actions){
       console.log("home ::: ",actions);
-      WidgetsListView.render();
+      AppView.render();
     },
     
     defaultAction: function(actions){
@@ -25,7 +25,9 @@ define([
     var app_router = new AppRouter;
     Backbone.history.start();
   };
+  
   return {
     initialize: initialize
   };
+
 });

@@ -41,10 +41,9 @@ define([
         
         this.template = _.template(widgetItemTemplate);
         
-        if(!_.isUndefined(this.model.get("data")))
-          $(this.el).html(
+        if(!_.isUndefined(this.model.get("data"))){
+          this.$el.html(
             this.template({
-          
               content: this.template_content({
                 data : this.model.get("data")
               }),
@@ -52,10 +51,7 @@ define([
               name: this.model.get("name")
             })
           );
-
-        $(".close-button").button();
-        
-        return this;
+        }
     },
 
     onCloseButtonClicked: function(event) {

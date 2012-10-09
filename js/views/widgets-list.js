@@ -4,8 +4,9 @@ define([
   'backbone',
   'collections/widgets',
   'views/widget-item',
+  'text!templates/widgets-list.html',
   'jqueryui'
-], function($, _, Backbone, WidgetsCollection, WidgetItemView){
+], function($, _, Backbone, WidgetsCollection, WidgetItemView, widgetsListTemplate){
   
   var WidgetsListView = Backbone.View.extend({
 
@@ -15,24 +16,33 @@ define([
         this.model.on("change", this.render, this);
         this.model.fetch();
       
-        $(".drop_col").sortable({
-          connectWith: ".drop_col"
-        });
     },
-
 
     render: function () {
       
-      $(".drop_col").empty();
+      this.datas    = {};
+      this.template = _.template(widgetsListTemplate);
+      this.$el.html(
+          this.template(this.datas)
+      );
       
       _.each(this.model.models, function(widget){
       
         if(!_.isUndefined(widget.get('col'))) {
-          $("#colonne_"+widget.get('col')).append( 
-            new WidgetItemView({model: widget}).render().el 
-          )
+          var view = new WidgetItemView({model: widget});
+          view.render();
+          if(widget.get('col') == 0){
+            $("#main_col").append(view.el);
+          }else{
+            $("#side_col").append(view.el);
+          }
         }
+      
       }, this);
+
+      $(".drop_col").sortable({
+        connectWith: ".drop_col"
+      });
 
       $(".accordion").accordion({
         collapsible: true,
@@ -40,9 +50,12 @@ define([
         heightStyle: 'content'
       });
 
+
+      $(".button").button();
+
     },
 
   });
 
-  return new WidgetsListView;
+  return WidgetsListView;
 });
