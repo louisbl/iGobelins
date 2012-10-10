@@ -16,19 +16,19 @@ define([
   var initialize = function(){
 
    headerModel = new HeaderModel();
-   widgetsColl = new WidgetsCollection();
+   widgetsColl = new WidgetsCollection({hModel: headerModel});
 
    headerView  = new HeaderView({
     model: headerModel,
    });
 
    widgetsList = new WidgetsListView({
-    model: widgetsColl,
-    hModel: headerModel
+    model  : widgetsColl,
+    hModel : headerModel
    });
 
    appView = new AppView({
-    headerView : headerView,
+    headerView  : headerView,
     widgetsList : widgetsList,
    });
     
@@ -39,8 +39,8 @@ define([
     headerView.on("header:destroy",onHeaderDestroy);
 
     headerModel.fetch({
-      success: onHeaderFetchSuccess,
-      error: onHeaderFetchError,
+      success : onHeaderFetchSuccess,
+      error   : onHeaderFetchError,
     });
   }
 
@@ -50,7 +50,7 @@ define([
     }else{
       headerModel.set({
           authenticated : response.authenticated,
-          token : response.token
+          token         : response.token
         });
       model.isLoggedOut();
     }
@@ -69,22 +69,22 @@ define([
   var onHeaderSave = function(data){
     console.log(" app ::: on header save",data);
     headerModel.save(data,{
-      wait: true,
-      success: onHeaderFetchSuccess,
-      error: onHeaderFetchError, 
+      wait    : true,
+      success : onHeaderFetchSuccess,
+      error   : onHeaderFetchError, 
     })
   }
   
   var onHeaderDestroy = function(){
     console.log(" app ::: on header destroy");
     headerModel.destroy({
-      success: onHeaderFetchSuccess,
-      error: onHeaderFetchError, 
+      success : onHeaderFetchSuccess,
+      error   : onHeaderFetchError, 
     })
   }
 
   return {
-    initialize: initialize
+    initialize : initialize
   };
 
 });

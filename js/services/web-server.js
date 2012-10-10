@@ -9,6 +9,8 @@ define([
 
     	params.url      = apiURL;
     	params.url      += "?apiKey="+apiKey;
+      if(!_.isUndefined(options.other_params))
+        params.url      += options.other_params;
     	params.timeout  = 10000;
     	params.dataType = "jsonp";
 

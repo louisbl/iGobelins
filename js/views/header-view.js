@@ -44,36 +44,6 @@ define([
 
 		onLogoutClicked: function(event) {
 			this.trigger("header:destroy");
-			/*this.model.destroy({
-				success: this.onLoggedOut,
-			});*/
-		},
-
-	//Callbacks
-
-		onLoggedOut: function(model, response) {
-			if(response.success){
-				model.set({
-					authenticated : response.authenticated,
-					token : response.token
-				});
-				model.isLoggedOut();
-			}
-		},
-
-		onLoggedIn : function(model,response){
-			console.log(model,response);
-			if( model.get("success") != true ){
-				//model.trigger("error",model.get("msg"));
-			}else{
-				//model.isLoggedIn();
-			}
-		},
-
-	//Errors
-	
-		onSaveError: function(model,response){
-			console.log(model,response);
 		},
 		
 	});

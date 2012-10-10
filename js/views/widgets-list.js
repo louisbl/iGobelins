@@ -10,11 +10,10 @@ define([
   
   var WidgetsListView = Backbone.View.extend({
 
-    events: {
-      "receive .drop_col": "onReceive",
-    },
-
     initialize:function (options) {
+
+        _.bindAll(this,"onReceive");
+
         this.model  = options.model;
         this.hModel = options.hModel;
         this.model.fetch();
@@ -72,11 +71,32 @@ define([
         });
     },
 
-    onReceive: function( event, ui){
-      console.log(event,ui);
-      _.each(ui.sender.children(),function(child){
-        console.log($(child).attr("id") );
-      });
+    onReceive: function( event, ui ){
+      var i = 0;
+      var widget_id = 0;
+
+      _.each($("#main_col").children(),function(child){
+          widget_id = ( $(child).attr("id") ).replace("widget_item_","");
+          this.model.get(widget_id).set(
+            {col: 0, position: i},
+            {silent: true}
+            );
+          i++;
+      },this);
+      
+      i = 0;
+      
+      _.each($("#main_col").children(),function(child){
+          widget_id = ( $(child).attr("id") ).replace("widget_item_","");
+          this.model.get(widget_id).set(
+            {col: 1, position: i},
+            {silent: true}
+          );
+          i++;
+      },this);
+
+      this.model.save();
+
     },
 
   });

@@ -57,6 +57,7 @@ define([
     },
 
     onCloseButtonClicked: function(event) {
+      console.log(this.model.isNew());
       this.model.destroy();
     },
 
