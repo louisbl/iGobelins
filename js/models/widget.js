@@ -3,25 +3,27 @@ define([
   'services/one-widget'
 ], function( Backbone, WidgetSync){
   var WidgetModel = Backbone.Model.extend({
+
     idAttribute: "id_widget",
-    
-    parse : function(response){
-        return response;
-    },    
-
-    initialize : function(){
-        this.fetch();
-    },
-
-    sync: WidgetSync,
 
     events : {
       "widget:remove" : "removeWidget"
     },
 
+    initialize : function(){
+        this.fetch();
+    },
+    
+    parse : function(response){
+        return response;
+    },    
+
+    sync: WidgetSync,
+
     removeWidget: function() {
       console.log("BB rules ;)",this.id);
     }
+    
   });
   return WidgetModel;
 });

@@ -1,3 +1,15 @@
 <a href="#">iGobelins</a>
 <button class="button">Ajouter</button>
-<div id="compte"><%= compte %></div>
+<div>
+	<% if( !authenticated ) {%>
+		<form id="login-form">
+			<input name="email" id="email" type="text" value="e-mail"/>
+			<input name="password" id="password" type="password" value="password"/>
+			<input type="submit" value="sign in"/>
+		</form>
+	<%} else {%>
+		<p><%= user.pseudo %></p>
+		<button id="compte-btn" class="button">compte</button>
+		<button id="logout-btn" class="button">logout</button>
+	<% }%>
+</div>

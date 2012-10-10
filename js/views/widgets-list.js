@@ -10,12 +10,14 @@ define([
   
   var WidgetsListView = Backbone.View.extend({
 
-    initialize:function () {
+    events: {
+      "receive .drop_col": "onReceive",
+    },
 
-        this.model = new WidgetsCollection();
-        this.model.on("change", this.render, this);
+    initialize:function (options) {
+        this.model  = options.model;
+        this.hModel = options.hModel;
         this.model.fetch();
-      
     },
 
     render: function () {
@@ -29,8 +31,14 @@ define([
       _.each(this.model.models, function(widget){
       
         if(!_.isUndefined(widget.get('col'))) {
-          var view = new WidgetItemView({model: widget});
+          
+          var view = new WidgetItemView({
+            model: widget,
+            id: "widget_item_"+widget.id,
+          });
+
           view.render();
+          
           if(widget.get('col') == 0){
             $("#main_col").append(view.el);
           }else{
@@ -40,19 +48,35 @@ define([
       
       }, this);
 
-      $(".drop_col").sortable({
-        connectWith: ".drop_col"
+      if( this.hModel.get("authenticated") ){
+
+        $(".drop_col").sortable({
+            receive: this.onReceive,
+            connectWith: ".drop_col"
+          });
+        $(".auth-btn").show();
+
+
+      } else {
+        
+        $(".drop_col").sortable({
+            disabled: true
+          });
+        $(".auth-btn").hide();
+      }
+
+        $(".accordion").accordion({
+          collapsible: true,
+          active: false,
+          heightStyle: 'content'
+        });
+    },
+
+    onReceive: function( event, ui){
+      console.log(event,ui);
+      _.each(ui.sender.children(),function(child){
+        console.log($(child).attr("id") );
       });
-
-      $(".accordion").accordion({
-        collapsible: true,
-        active: false,
-        heightStyle: 'content'
-      });
-
-
-      $(".button").button();
-
     },
 
   });

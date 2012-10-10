@@ -12,8 +12,10 @@ define([
   
  var WidgetItemView = Backbone.View.extend({
     
+    className: "ui-widget ui-widget-content",
+
     events: {
-      "click .close-button": "onCloseButtonClicked"
+      "click .close-btn": "onCloseButtonClicked"
     },
 
     initialize: function() {
@@ -38,7 +40,7 @@ define([
     },
 
     render:function () {
-        
+
         this.template = _.template(widgetItemTemplate);
         
         if(!_.isUndefined(this.model.get("data"))){
@@ -56,6 +58,11 @@ define([
 
     onCloseButtonClicked: function(event) {
       this.model.destroy();
+    },
+
+    onLoggedIn: function(userModel){
+      console.log(userModel);
+      console.log(this);
     }
 
   });
