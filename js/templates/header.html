@@ -1,15 +1,32 @@
 <a href="#">iGobelins</a>
-<button class="button">Ajouter</button>
+<button id="ajout-btn" class="button">Ajouter</button>
 <div>
 	<% if( !authenticated ) {%>
 		<form id="login-form">
-			<input name="email" id="email" type="text" value="e-mail"/>
-			<input name="password" id="password" type="password" value="password"/>
-			<input type="submit" value="sign in"/>
+			<input name="email" id="email" type="text" value="louis@beltramo.me"/>
+			<input name="password" id="password" type="password" value="123456"/>
+			<input class="button" type="submit" value="sign in"/>
 		</form>
 	<%} else {%>
 		<p><%= user.pseudo %></p>
 		<button id="compte-btn" class="button">compte</button>
 		<button id="logout-btn" class="button">logout</button>
 	<% }%>
+</div>
+<div id="ajout-dialog" title="Ajout de widgets">
+	<form>
+		<fieldset>
+			<label for="titre">Titre</label>
+			<input id="titre" name="titre" type="text"/>
+			<label for="type">Type</label>
+			<select id="type" name="type">
+				<option value="1" >RSS</option>
+				<option value="2" >Météo</option>
+				<option value="3" >Youtube</option>
+				<option value="4" >Custom</option>
+			</select>
+			<label for="url">Url/Mot clé</label>
+			<input id="url" name="url" type="text"/>
+		</fieldset>
+	</form>
 </div>

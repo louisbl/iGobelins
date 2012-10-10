@@ -61,11 +61,6 @@ define([
       this.model.destroy();
     },
 
-    onLoggedIn: function(userModel){
-      console.log(userModel);
-      console.log(this);
-    }
-
   });
 
   return WidgetItemView;

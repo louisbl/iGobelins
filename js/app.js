@@ -4,9 +4,8 @@ define([
   'views/widgets-list',
   'models/header',
   'collections/widgets'
-], function( AppView, HeaderView, WidgetsListView, HeaderModel, WidgetsCollection ){
+], function( AppView, HeaderView, WidgetsListView, User, WidgetsCollection ){
   
-  var headerModel = {};
   var widgetsColl = {};
 
   var appView     = {};
@@ -15,16 +14,14 @@ define([
 
   var initialize = function(){
 
-   headerModel = new HeaderModel();
-   widgetsColl = new WidgetsCollection({hModel: headerModel});
+   widgetsColl = new WidgetsCollection();
 
    headerView  = new HeaderView({
-    model: headerModel,
-   });
+    model: User.getSession()
+  });
 
    widgetsList = new WidgetsListView({
     model  : widgetsColl,
-    hModel : headerModel
    });
 
    appView = new AppView({
@@ -32,55 +29,24 @@ define([
     widgetsList : widgetsList,
    });
     
-    headerModel.on("change", renderAll);
-    widgetsColl.on("change", renderAll);
+    User.getSession().on("change", renderAll);
+    widgetsColl.on("sync", renderAll);
 
-    headerView.on("header:save",onHeaderSave);
-    headerView.on("header:destroy",onHeaderDestroy);
+    headerView.on("header:login",User.doLogin);
+    headerView.on("header:logout",User.doLogout);
+    headerView.on("header:add",addWidget);
 
-    headerModel.fetch({
-      success : onHeaderFetchSuccess,
-      error   : onHeaderFetchError,
-    });
+    User.testCookie();
   }
 
-  var onHeaderFetchSuccess = function(model, response) {
-    if( response.authenticated ){
-      model.isLoggedIn();
-    }else{
-      headerModel.set({
-          authenticated : response.authenticated,
-          token         : response.token
-        });
-      model.isLoggedOut();
-    }
-  }
-
-  var onHeaderFetchError = function(model, response) {
-    console.log( "app ::: on header fecth error",model,response);
-    appView.error(response);
+  var addWidget = function(data){
+    console.log("app ::: add widget ::: ",data);
+    widgetsColl.create(data,{wait: true});
   }
 
   var renderAll = function(model,options){
     console.log("app ::: render",model,options);
     appView.render();
-  }
-
-  var onHeaderSave = function(data){
-    console.log(" app ::: on header save",data);
-    headerModel.save(data,{
-      wait    : true,
-      success : onHeaderFetchSuccess,
-      error   : onHeaderFetchError, 
-    })
-  }
-  
-  var onHeaderDestroy = function(){
-    console.log(" app ::: on header destroy");
-    headerModel.destroy({
-      success : onHeaderFetchSuccess,
-      error   : onHeaderFetchError, 
-    })
   }
 
   return {

@@ -5,21 +5,28 @@ define([
   'collections/widgets',
   'views/widget-item',
   'text!templates/widgets-list.html',
+  'models/header',
   'jqueryui'
-], function($, _, Backbone, WidgetsCollection, WidgetItemView, widgetsListTemplate){
+], function($, _, Backbone, WidgetsCollection, WidgetItemView, widgetsListTemplate, User){
   
   var WidgetsListView = Backbone.View.extend({
 
-    initialize:function (options) {
+    comparator: function(widget){
+      return widget.get("position");
+    },
 
-        _.bindAll(this,"onReceive");
+    initialize:function () {
 
-        this.model  = options.model;
-        this.hModel = options.hModel;
+        _.bindAll(this,"onUpdate");
+
+        this.model.on("destroy",this.render);
+
         this.model.fetch();
     },
 
     render: function () {
+
+      console.log(" widgets render ::: "+User.getAuth());
       
       this.datas    = {};
       this.template = _.template(widgetsListTemplate);
@@ -30,7 +37,7 @@ define([
       _.each(this.model.models, function(widget){
       
         if(!_.isUndefined(widget.get('col'))) {
-          
+
           var view = new WidgetItemView({
             model: widget,
             id: "widget_item_"+widget.id,
@@ -47,10 +54,10 @@ define([
       
       }, this);
 
-      if( this.hModel.get("authenticated") ){
+      if( User.getAuth() ){
 
         $(".drop_col").sortable({
-            receive: this.onReceive,
+            update: this.onUpdate,
             connectWith: ".drop_col"
           });
         $(".auth-btn").show();
@@ -64,14 +71,18 @@ define([
         $(".auth-btn").hide();
       }
 
-        $(".accordion").accordion({
-          collapsible: true,
-          active: false,
-          heightStyle: 'content'
-        });
+      $(".accordion").accordion({
+        collapsible: true,
+        active: false,
+        heightStyle: 'content'
+      });
     },
 
-    onReceive: function( event, ui ){
+    onUpdate: function( event, ui ){
+
+      if( ui.sender != null )
+          return;
+
       var i = 0;
       var widget_id = 0;
 
@@ -86,7 +97,7 @@ define([
       
       i = 0;
       
-      _.each($("#main_col").children(),function(child){
+      _.each($("#side_col").children(),function(child){
           widget_id = ( $(child).attr("id") ).replace("widget_item_","");
           this.model.get(widget_id).set(
             {col: 1, position: i},

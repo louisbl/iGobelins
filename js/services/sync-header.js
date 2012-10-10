@@ -2,7 +2,6 @@ define([
   'jquery',
   'backbone',
   'services/web-server',
-  'vendor/jquery-cookie',
   'consts'
 ], function( $, Backbone, WebServSync){
     return function (method, model, options) {
@@ -10,7 +9,7 @@ define([
         switch(method){
           case 'create':
               console.log(method);
-              options.data           = model.toJSON();
+              options.data           = _.pick(model.toJSON(), 'email', 'pass');
               options.data.apiCall   = "login";
               break;
           case 'update':
@@ -19,22 +18,19 @@ define([
               break;
           case 'delete':
               console.log(method);
-              options.data           = model.toJSON();
+              options.data           = _.pick(model.toJSON(), 'token' );
               options.data.apiCall   = "logout";
               break;
           case 'read':
               console.log(method);
-              $.cookie.json = true;
-              var cookie = $.cookie('iGobelins_user');
+              var cookie = model.getCookie();
+              
               if( cookie != null ){
-                console.log( cookie );
-                options.data = {};
-                options.data.token = cookie;
-                model.set({"token": cookie}, {"silent": true} );
-                options.data.apiCall   = "getUserData";
+                options.data         = {};
+                options.data.token   = cookie;
+                options.data.apiCall = "getUserData";
               }else{
                 no_send = true;
-                model.set({"authenticated" : false}, {"silent": true});
               }
               break;
     }
