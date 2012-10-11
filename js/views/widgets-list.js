@@ -26,10 +26,9 @@ define([
 
     render: function () {
 
-      console.log(" widgets render ::: "+User.getAuth());
-      
       this.datas    = {};
       this.template = _.template(widgetsListTemplate);
+      //TODO wtf is wrong with this.$el ?
       this.$el.html(
           this.template(this.datas)
       );

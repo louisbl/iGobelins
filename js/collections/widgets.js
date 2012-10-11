@@ -13,12 +13,14 @@ define([
     },
 
     save: function(){
-      this.widg = "";
+      this.widget = {};
       this.each(function( widget ){
-        this.widg += "&widget["+widget.id+"]"+"="+widget.get("position")+"_"+widget.get("col");
+        this.widget[widget['id']] = widget.get("position")+"_"+widget.get("col");
       },this );
 
       options = {};
+
+      console.log(this.widget);
 
       return this.sync.call(this,"update",this,options);
     },

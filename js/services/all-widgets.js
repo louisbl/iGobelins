@@ -8,8 +8,8 @@ define([
           case 'update':
               console.log(method, model, options);
               options.data         = {};
+              options.data.widget  = model.widget;
               options.data.token   = User.getToken();
-              options.other_params = model.widg;
               options.data.apiCall = "changeWidgetPosition";
               break;
         	case 'read':
