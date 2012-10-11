@@ -11,6 +11,8 @@ define([
   
   var WidgetsListView = Backbone.View.extend({
 
+    className: "main-container",
+
     comparator: function(widget){
       return widget.get("position");
     },
@@ -29,7 +31,7 @@ define([
       this.datas    = {};
       this.template = _.template(widgetsListTemplate);
       //TODO wtf is wrong with this.$el ?
-      this.$el.html(
+      $(this.el).html(
           this.template(this.datas)
       );
       
@@ -75,6 +77,10 @@ define([
         active: false,
         heightStyle: 'content'
       });
+
+      $(".tabs").tabs({
+        collapsible: true,
+      })
     },
 
     onUpdate: function( event, ui ){

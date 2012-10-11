@@ -29,8 +29,12 @@ define([
     widgetsList : widgetsList,
    });
     
-    User.getSession().on("change", renderAll);
-    widgetsColl.on("sync", renderAll);
+    User.getSession().on("change:authenticated", onAuthChange);
+    widgetsColl.on("change:data", onDataChange);
+    widgetsColl.on("add", onWidgetAdd);
+    widgetsColl.on("remove", onWidgetRemove);
+
+    widgetsColl.on("all", onEvents);
 
     headerView.on("header:login",User.doLogin);
     headerView.on("header:logout",User.doLogout);
@@ -39,14 +43,33 @@ define([
     User.testCookie();
   }
 
+  var onAuthChange = function(event){
+    console.log("on auth change ::: ",event);
+    appView.render();
+  }
+
+  var onWidgetAdd = function(event){
+    console.log("on widget add ::: ",event);
+    appView.render();
+  }
+
+  var onWidgetRemove = function(event){
+    console.log("on widget remove ::: ",event);
+    appView.render();
+  }
+  
+  var onDataChange = function(event){
+    console.log("on data change ::: ",event);
+    appView.render();
+  }
+
+  var onEvents = function(event,params) {
+    console.log(" on events ::: ",event,params);
+  }
+
   var addWidget = function(data){
     console.log("app ::: add widget ::: ",data);
     widgetsColl.create(data,{wait: true});
-  }
-
-  var renderAll = function(model,options){
-    console.log("app ::: render",model,options);
-    appView.render();
   }
 
   return {

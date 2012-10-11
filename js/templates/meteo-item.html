@@ -1,6 +1,11 @@
+<div class="tabs">
+<ul>
+	<% _.each(data.previsions, function(item){ %>
+		<li><a href="#jour-<%= (item.date).replace(" ","-") %>"><%= (item.date).substr(0,2) %></a></li>
+	<% }); %>
+</ul>
 <% _.each(data.previsions, function(item){ %>
-	<h3><%= item.date %></h3>
-	<div>
+<section id="jour-<%= (item.date).replace(" ","-") %>" class="meteo-wrapper ui-widget-content">
 		<div class="block-meteo">
 			<h4>Matin</h4>
 			<img src="<%= item.pictos_matin %>" />
@@ -25,5 +30,6 @@
 			<p><%= item.namepictos_soir %></p>
 			<p><%= item.tempe_soir %></p>
 		</div>
-	</div>
+</section>
 <% }); %>
+</div>

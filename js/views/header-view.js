@@ -8,7 +8,7 @@ define([
 	
 	var HeaderView = Backbone.View.extend({
 
-		tagName: "header",
+		className: "ui-widget ui-widget-header",
 
 		events: {
 			"submit #login-form" : "onLoginClicked",

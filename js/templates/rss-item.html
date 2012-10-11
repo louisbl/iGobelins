@@ -1,7 +1,16 @@
 <% _.each(data, function(item){ %>
-	<h3><%= item.title %></h3>
-	<div>
-		<a href="<%= item.link %>">link</a>
-		<%= item.description %>
-	</div>
+<article class="accordion">
+	<header>
+		<h3><%= item.title %></h3>
+		<p><%= item.pubDate %> - <%= item.pseudo %></p>
+	</header>
+	<section>
+		<header>
+			<a href="<%= item.link %>">source</a>
+		</header>
+		<section>
+			<%= item.description %>
+		</section>
+	</section>
+</article>
 <% }); %>

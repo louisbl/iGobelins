@@ -1,18 +1,28 @@
-<a href="#">iGobelins</a>
-<button id="ajout-btn" class="button">Ajouter</button>
-<div>
-	<% if( !authenticated ) {%>
-		<form id="login-form">
-			<input name="email" id="email" type="text" value="louis@beltramo.me"/>
-			<input name="password" id="password" type="password" value="123456"/>
-			<input class="button" type="submit" value="sign in"/>
-		</form>
-	<%} else {%>
-		<p><%= user.pseudo %></p>
-		<button id="compte-btn" class="button">compte</button>
-		<button id="logout-btn" class="button">logout</button>
+<header class="wrapper clearfix">
+    <h1 class="title">iGobelins</h1>
+	<% if( authenticated ) {%>
+		<button id="ajout-btn" class="button">Ajouter</button>
 	<% }%>
-</div>
+    <nav>
+            <!--
+            <li><a href="#">nav ul li a</a></li>
+            <li><a href="#">nav ul li a</a></li>
+            <li><a href="#">nav ul li a</a></li>
+			-->
+			<% if( !authenticated ) {%>
+				<form id="login-form">
+					<input name="email" id="email" type="text" value="louis@beltramo.me"/>
+					<input name="password" id="password" type="password" value="123456"/>
+					<input class="button" type="submit" value="sign in"/>
+				</form>
+			<%} else {%>
+				<span><%= user.pseudo %></span>
+				<button id="compte-btn" class="button">compte</button>
+				<button id="logout-btn" class="button">logout</button>
+			<% }%>
+    </nav>
+</header>
+<div>
 <div id="ajout-dialog" title="Ajout de widgets">
 	<form>
 		<fieldset>

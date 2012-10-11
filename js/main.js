@@ -1,5 +1,6 @@
 requirejs.config({
     paths: {
+        'modernizr'  : 'vendor/modernizr-2.6.1-respond-1.1.0.min',
         'jquery'     : 'vendor/jquery-min',
         'jqueryui'   : 'vendor/jquery-ui-min',
         'underscore' : 'vendor/underscore-min',
@@ -20,7 +21,8 @@ requirejs.config({
 });
 
 require([
-  'app'
+    'app',
+    'modernizr',
 ], function(App){
     App.initialize();
 });
