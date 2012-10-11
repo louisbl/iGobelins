@@ -1,4 +1,5 @@
 @import url("pepper-grinder/jquery-ui.css");
+
 /* ==========================================================================
    HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
@@ -62,31 +63,12 @@ textarea {
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font: 14px/24px Helvetica, Helvetica Neue, Arial;
 }
 
 .wrapper {
     width: 90%;
     margin: 0 5%;
-}
-
-/* ===================
-    ALL: Orange Theme
-   =================== */
-
-.header-container {
-    border-bottom: 20px solid #e44d26;
-}
-
-.footer-container,
-.main aside {
-    border-top: 20px solid #e44d26;
-}
-
-.header-container,
-.footer-container,
-.main aside {
-    background: #f16529;
 }
 
 /* ==============
@@ -96,28 +78,6 @@ body {
 nav ul {
     margin: 0;
     padding: 0;
-}
-
-nav a {
-    display: block;
-    margin-bottom: 10px;
-    padding: 15px 0;
-
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-
-    color: white;
-    background: #e44d26;
-}
-
-nav a:hover,
-nav a:visited {
-    color: white;
-}
-
-nav a:hover {
-    text-decoration: underline;
 }
 
 /* ==============
@@ -132,14 +92,9 @@ nav a:hover {
     font-size: 2em;
 }
 
-.main aside {
-    color: white;
-    padding: 0px 5% 10px;
-}
 
-.footer-container footer {
-    color: white;
-    padding: 20px 0;
+.title {
+    float: left;
 }
 
 /* ===============
@@ -154,23 +109,51 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+.drop_col {
+    padding: 5px;
+    min-height: 100px;
+}
+
+.drop-zone {
+    height: 100px;
+}
+
+.widget-item {
+    margin: 20px 0;
+}
+
 #login-form {
     display: inline;
 }
 
 .block-meteo {
-    width: 24%;
+    margin-left: 10%;
+    width: 38%;
     display: inline-block;
 }
 
 .auth-btn {
     float: right;
+    margin: 13px 5px;
 }
 
+h2 {
+    margin-left: 0.5em;
+}
 
+#header-bar{
+    margin: 17px 0;
+}
 
+#header-bar #ajout-btn{
+    margin: 0 20px;
+}
 
-
+#ajout-dialog label,
+#ajout-dialog input {
+    display: block;
+    width: 100%;
+}
 
 
 /* ==========================================================================
@@ -229,28 +212,24 @@ nav a:hover {
     WIDE: Menu
    ============ */
 
-    .title {
-        float: left;
-    }
-
     nav {
         float: right;
-        /*width: 50%;*/
+       /* width: 38%;*/
     }
 
 /* ============
     WIDE: Main
    ============ */
 
-    .main article {
-        width: 100%;
+    .main #main_col {
+        float: left;
+        width: 57%;
     }
 
-    .main aside {
+    .main #side_col {
         float: right;
-        width: 28%;
+        width: 35%;
     }
-
 }
 
 @media only screen and (min-width: 1140px) {
@@ -260,20 +239,9 @@ nav a:hover {
    =============== */
 
     .wrapper {
-         /* width: 1026px; /* 1140px - 10% for margins */
+        width: 1026px; /* 1140px - 10% for margins */
         margin: 0 auto;
     }
-
-    #main_col {
-        width: 60%;
-        float: left;
-    }
-
-    #side_col {
-        width: 34%;
-        float: right;
-    }
-
 }
 
 /* ==========================================================================

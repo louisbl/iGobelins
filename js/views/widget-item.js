@@ -7,15 +7,18 @@ define([
   'text!templates/meteo-item.html',
   'text!templates/youtube-item.html',
   'text!templates/custom-item.html',
+  //'vendor/jquery-youtube',
   'jqueryui'
 ], function($, _, Backbone, widgetItemTemplate, rssItemTemplate, meteoItemTemplate, youtubeItemTemplate, customItemTemplate){
   
  var WidgetItemView = Backbone.View.extend({
     
-    className: "ui-widget ui-widget-content",
+    className: "widget-item ui-widget-content ui-corner-all",
 
     events: {
-      "click .close-btn": "onCloseButtonClicked"
+      "click .close-btn": "onCloseButtonClicked",
+      "click .reduce-btn": "onReduceButtonClicked",
+      "click .refresh-btn": "onRefreshButtonClicked",
     },
 
     initialize: function() {
@@ -41,7 +44,11 @@ define([
 
     render:function () {
 
+      if( !this.model.changedAttributes() )
+        return false;
+
         this.template = _.template(widgetItemTemplate);
+
         
         if(!_.isUndefined(this.model.get("data"))){
           this.$el.html(
@@ -54,11 +61,52 @@ define([
             })
           );
         }
+
+        this.$(".widget-content").hide();
+
+        this.$(".refresh-btn").button({
+          text: false,
+          icons: {
+            primary: "ui-icon-refresh"
+          }
+        });
+
+        this.$(".reduce-btn").button({
+          text: false,
+          icons: {
+            primary: "ui-icon-minusthick"
+          }
+        });
+
+        this.$(".close-btn").button({
+          text: false,
+          icons: {
+            primary: "ui-icon-closethick"
+          }
+        });
+
+/*        this.$(".youtube-player").tubeplayer({
+          width: 640,
+          height: 480,
+          allowFullScreen: "true",
+          initialVideo: "wNQVXJ3hHLg",
+          preferredQuality: "default",
+          autoPlay: true,
+        });*/
+
+      console.log(" widget view ::: ",this.model.changedAttributes());
     },
 
     onCloseButtonClicked: function(event) {
-      console.log(this.model.isNew());
       this.model.destroy();
+    },
+    
+    onReduceButtonClicked: function(event) {
+      this.$(".widget-content").slideToggle();
+    },
+
+    onRefreshButtonClicked: function(event) {
+      this.model.refresh();
     },
 
   });

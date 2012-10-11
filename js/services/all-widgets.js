@@ -12,8 +12,9 @@ define([
               options.data.token   = User.getToken();
               options.data.apiCall = "changeWidgetPosition";
               break;
-        	case 'read':
+          case 'read':
               options.data         = {};
+              options.data.token   = User.getToken();
             	options.data.apiCall = "loadUserWidgets";
             	break;
     	}

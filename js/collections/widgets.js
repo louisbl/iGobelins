@@ -6,6 +6,10 @@ define([
   
   var WidgetCollection = Backbone.Collection.extend({
     
+    comparator: function(widget){
+      return widget.get("position");
+    },
+    
     parse : function(response){
         if( response.success ){
             return response.widgets;

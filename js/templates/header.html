@@ -1,14 +1,10 @@
 <header class="wrapper clearfix">
     <h1 class="title">iGobelins</h1>
-	<% if( authenticated ) {%>
-		<button id="ajout-btn" class="button">Ajouter</button>
-	<% }%>
-    <nav>
-            <!--
-            <li><a href="#">nav ul li a</a></li>
-            <li><a href="#">nav ul li a</a></li>
-            <li><a href="#">nav ul li a</a></li>
-			-->
+    <div id="header-bar">
+		<% if( authenticated ) {%>
+			<button id="ajout-btn">Ajouter</button>
+		<% }%>
+    	<nav>
 			<% if( !authenticated ) {%>
 				<form id="login-form">
 					<input name="email" id="email" type="text" value="louis@beltramo.me"/>
@@ -18,25 +14,26 @@
 			<%} else {%>
 				<span><%= user.pseudo %></span>
 				<button id="compte-btn" class="button">compte</button>
-				<button id="logout-btn" class="button">logout</button>
+				<button id="logout-btn">logout</button>
 			<% }%>
-    </nav>
+    	</nav>
+    </div>
 </header>
 <div>
 <div id="ajout-dialog" title="Ajout de widgets">
 	<form>
 		<fieldset>
 			<label for="titre">Titre</label>
-			<input id="titre" name="titre" type="text"/>
+			<input class="ui-widget-header ui-corner-all" id="titre" name="titre" type="text"/>
 			<label for="type">Type</label>
-			<select id="type" name="type">
+			<select class="ui-widget-header" id="type" name="type">
 				<option value="1" >RSS</option>
 				<option value="2" >Météo</option>
 				<option value="3" >Youtube</option>
 				<option value="4" >Custom</option>
 			</select>
 			<label for="url">Url/Mot clé</label>
-			<input id="url" name="url" type="text"/>
+			<input class="ui-widget-header ui-corner-all" id="url" name="url" type="text"/>
 		</fieldset>
 	</form>
 </div>

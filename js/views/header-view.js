@@ -8,7 +8,7 @@ define([
 	
 	var HeaderView = Backbone.View.extend({
 
-		className: "ui-widget ui-widget-header",
+		className: "ui-widget-header",
 
 		events: {
 			"submit #login-form" : "onLoginClicked",
@@ -22,7 +22,11 @@ define([
 		},
 
 		render: function(){
-			console.log( "header view ::: render",this.model.toJSON());
+			console.log( "header view ::: render",this.model.changedAttributes());
+
+			if( !this.model.changedAttributes() )
+        		return false;
+
 			this.template = _.template(headerTemplate);
 			this.$el.html(
 			    this.template(this.model.toJSON())
@@ -34,13 +38,29 @@ define([
 				autoOpen: false,
 				modal: true,
 				buttons: {
-					Cancel: function(){
-						$(this).dialog( "close" );
-					},
 					"Ajouter": function(){
 						$(this).trigger("widget:add");
 						$(this).dialog( "close" );
 					},
+				}
+			});
+
+			this.$("#ajout-btn").button({
+				icons: {
+					primary: "ui-icon-plusthick",
+					secondary: "ui-icon-triangle-1-se",
+				}
+			});
+
+			this.$("#logout-btn").button({
+				icons: {
+					primary: "ui-icon-power",
+				}
+			});
+
+			this.$("#compte-btn").button({
+				icons: {
+					primary: "ui-icon-person",
 				}
 			});
 
