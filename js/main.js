@@ -40,7 +40,7 @@ require([
         nope: 'css/pepper-grinder/jquery-ui.css'
     });*/
 
-    if($("html").hasClass("no-touch") && Modernizr.mq('only screen and (max-device-width: 800px)') ){
+    if($("html").hasClass("touch") && Modernizr.mq('only screen and (max-device-width: 800px)') ){
         require(["mobile-app","jquerymobile"], function (App) {
             loadCss("css/jquery-mobile.min.css");
             App.initialize();
