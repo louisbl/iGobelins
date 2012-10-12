@@ -18,13 +18,13 @@ define([
 		},
 
 		initialize: function(){
-			_.bindAll(this,"onAddWidget");
+			_.bindAll(this);
 		},
 
 		render: function(){
 			console.log( "header view ::: render",this.model.changedAttributes());
 
-			if( !this.model.changedAttributes() )
+			if(this.rendered && !this.model.changedAttributes() )
         		return false;
 
 			this.template = _.template(headerTemplate);
@@ -40,6 +40,19 @@ define([
 				buttons: {
 					"Ajouter": function(){
 						$(this).trigger("widget:add");
+						$(this).dialog( "close" );
+					},
+				}
+			});
+
+			this.$("#compte-dialog").on("compte:update",this.onCompteUpdate);
+
+			this.$("#compte-dialog").dialog({
+				autoOpen: false,
+				modal: true,
+				buttons: {
+					"Modifier": function(){
+						$(this).trigger("compte:update");
 						$(this).dialog( "close" );
 					},
 				}
@@ -64,9 +77,21 @@ define([
 				}
 			});
 
+			this.rendered = true;
 		},
 
 	//UI Events handler
+
+		onCompteUpdate: function(event){
+			console.log(event,this);
+			this.model.save({
+				user : {
+					pseudo : $('#user_pseudo').val(),
+					email : $('#user_email').val(),
+					pass : $('#user_pass').val()
+				}
+			});
+		},
 
 		onAddWidget: function(event){
 			console.log(event,this);
@@ -90,8 +115,7 @@ define([
 		},
 
 		onCompteClicked: function(event) {
-			console.log(event);
-			//TODO gestion du compte utilisateur
+			$("#compte-dialog").dialog( "open" );
 		},
 
 		onLogoutClicked: function(event) {

@@ -8,10 +8,19 @@ define([
 	var HeaderModel = Backbone.Model.extend({
 		
 		idAttribute: "token",
+/*
+		initialize: function(){
+			this.set("authenticated",false);
+		},*/
 
 	    parse : function(response){
-	        if( response.success ){
+	        if( response.success == true ){
+	        	if( response.authenticated == true ){
+	        		this.setCookie();
+	        	}
 	            return _.omit(response, 'email', 'pass' );
+	        }else{
+	        	this.trigger("error",response.msg);
 	        }
 	    },
 
@@ -36,9 +45,9 @@ define([
 		},
 
 		setCookie: function(){
-			$.cookie.json = true;
 			$.cookie('iGobelins_user',
-				this.get("token")
+				this.get("token"),
+				{"expires":2,"path":"/"}
 			);
 		},
 
@@ -64,6 +73,13 @@ define([
 
 	function getToken(){
 		return userSession.get("token");
+	}
+
+	function resetCookie( auth ){
+		console.log("reset cookie ::: ",auth);
+		if( auth ){
+			userSession.setCookie();
+		}
 	}
 
 	function testCookie(){
@@ -98,11 +114,12 @@ define([
 	}
 
 	return {
-		getSession : getSession,
-		getAuth    : getAuth,
-		getToken   : getToken,
-		testCookie : testCookie,
-		doLogin    : doLogin,
-		doLogout   : doLogout,
+		getSession  : getSession,
+		getAuth     : getAuth,
+		getToken    : getToken,
+		testCookie  : testCookie,
+		resetCookie : resetCookie,
+		doLogin     : doLogin,
+		doLogout    : doLogout,
 	}
 });

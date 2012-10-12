@@ -23,6 +23,17 @@ define([
       return this.sync.call(this, 'refresh', this, options);
     },
 
+    getOption: function( key ){
+      var opt = this.get("option");
+      return opt[key];
+    },
+
+    setOption: function(key, value){
+      var opt = _.extend({},this.get("option"));
+      opt[key] = value;
+      this.save({option:opt});
+    },
+
     sync: WidgetSync,
     
   });

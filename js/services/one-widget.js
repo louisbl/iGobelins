@@ -18,7 +18,9 @@ define([
               options.data.apiCall = "addWidget";
               break;
           case 'update':
-              console.log(method);
+              options.data           = _.omit(model.toJSON(),"data");
+              options.data.token     = User.getToken();
+              options.data.apiCall   = "updateWidget";
               break;
           case 'delete':
               options.data           = {};

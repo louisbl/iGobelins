@@ -19,7 +19,7 @@
     	</nav>
     </div>
 </header>
-<div>
+<% if( authenticated ) {%>
 <div id="ajout-dialog" title="Ajout de widgets">
 	<form>
 		<fieldset>
@@ -37,3 +37,16 @@
 		</fieldset>
 	</form>
 </div>
+<div id="compte-dialog" title="Gestion du compte">
+	<form>
+		<fieldset>
+			<label for="user_pseudo">Pseudo</label>
+			<input value="<%= user.pseudo %>" class="ui-widget-header ui-corner-all" id="user_pseudo" name="user_pseudo" type="text"/>
+			<label for="user_email">e-mail</label>
+			<input value="<%= user.email %>" class="ui-widget-header ui-corner-all" id="user_email" name="user_email" type="text"/>
+			<label for="user_pass">Nouveau pass</label>
+			<input class="ui-widget-header ui-corner-all" id="user_pass" name="user_pass" type="password"/>
+		</fieldset>
+	</form>
+</div>
+<% }%>

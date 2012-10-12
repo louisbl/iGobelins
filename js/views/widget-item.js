@@ -23,6 +23,8 @@ define([
 
     initialize: function() {
 
+      _.bindAll(this);
+
       if(!_.isUndefined(this.model.get("type"))){
         
         switch(this.model.get("type")){
@@ -44,8 +46,11 @@ define([
 
     render:function () {
 
-      if( !this.model.changedAttributes() )
+      if(this.rendered && _.isEmpty(_.omit(this.model.changedAttributes(),'col','position'))){
+        console.log(" no render :: ",this.id);
         return false;
+      }
+      console.log(" do render :: ",this.id);
 
         this.template = _.template(widgetItemTemplate);
 
@@ -62,19 +67,12 @@ define([
           );
         }
 
-        this.$(".widget-content").hide();
+        this.toggleReduceBtn();
 
         this.$(".refresh-btn").button({
           text: false,
           icons: {
             primary: "ui-icon-refresh"
-          }
-        });
-
-        this.$(".reduce-btn").button({
-          text: false,
-          icons: {
-            primary: "ui-icon-minusthick"
           }
         });
 
@@ -94,7 +92,7 @@ define([
           autoPlay: true,
         });*/
 
-      console.log(" widget view ::: ",this.model.changedAttributes());
+      this.rendered = true;
     },
 
     onCloseButtonClicked: function(event) {
@@ -102,12 +100,42 @@ define([
     },
     
     onReduceButtonClicked: function(event) {
-      this.$(".widget-content").slideToggle();
+      this.$(".widget-content").slideToggle(this.onSlideDone);
     },
 
     onRefreshButtonClicked: function(event) {
       this.model.refresh();
     },
+
+    onSlideDone: function(){
+      if(this.$(".widget-content").css('display') == "none"){
+        this.model.setOption("hide",1);
+        this.toggleReduceBtn();
+      }else{
+        this.model.setOption("hide",0);
+        this.toggleReduceBtn();
+      }
+    },
+
+    toggleReduceBtn: function(){
+        if( this.model.getOption("hide") == 1 ){
+          this.$(" .reduce-btn").button({
+            text: false,
+            icons: {
+              primary: "ui-icon-plusthick"
+            }
+          });
+          this.$(".widget-content").hide();
+        }else{
+          this.$(".reduce-btn").button({
+            text: false,
+            icons: {
+              primary: "ui-icon-minusthick"
+            }
+          });
+          this.$(".widget-content").show();
+        }
+    }
 
   });
 

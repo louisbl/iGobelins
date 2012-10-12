@@ -11,8 +11,11 @@ define([
     },
     
     parse : function(response){
+      console.log(response);
         if( response.success ){
             return response.widgets;
+        }else{
+          this.trigger("error",response.msg);
         }
     },
 
@@ -23,8 +26,6 @@ define([
       },this );
 
       options = {};
-
-      console.log(this.widget);
 
       return this.sync.call(this,"update",this,options);
     },

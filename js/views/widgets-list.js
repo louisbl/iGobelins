@@ -38,11 +38,16 @@ define([
     },
 
     render: function () {
-      
-      _.each(this.model.models, function(widget){
-      
-          if(this.$el.has("#widget_item_"+widget.id).length == 0){
 
+      console.log(this.views.length);
+      this.views = _.filter(this.views,this.filterViews,this);
+      console.log(this.views.length);
+
+      _.each(this.model.models, function(widget){
+          
+          console.log(widget.id);
+
+          if(!this.filterModels( widget ) ){
             var view = new WidgetItemView({
               model: widget,
               id: "widget_item_"+widget.id,
@@ -51,21 +56,24 @@ define([
             this.views.push(view);
             
             if(widget.get('col') == 0){
-              $("#main_col").append(view.el);
+              this.$("#main_col").prepend(view.el);
             }else{
-              $("#side_col").append(view.el);
+              this.$("#side_col").prepend(view.el);
             }
+
           }
-      
       }, this);
 
       _.each(this.views, function(view){
-        view.render();
+          view.render();
       },this);
 
+
       if( User.getAuth() ){
+      console.log("user get auth",User.getAuth());
 
         $(".drop_col").sortable({
+            disabled: false,
             update: this.onUpdate,
             connectWith: ".drop_col",
             cursor: "move",
@@ -82,6 +90,7 @@ define([
 
         this.onUpdate();
       } else {
+      console.log("user get auth",User.getAuth());
         
         $(".drop_col").sortable({
             disabled: true
@@ -89,13 +98,13 @@ define([
         $(".auth-btn").hide();
       }
 
-      $(".accordion").accordion({
+      this.$(".accordion").accordion({
         collapsible: true,
         active: false,
         heightStyle: 'content'
       });
 
-      $(".tabs").tabs({
+      this.$(".tabs").tabs({
         collapsible: true,
       });
 
@@ -103,7 +112,7 @@ define([
 
     onUpdate: function( event, ui ){
 
-      console.log("on update");
+      console.log("on update",this.views.length);
 
       if( ui != null && ui.sender != null )
           return;
@@ -111,8 +120,8 @@ define([
       var i = 1;
       var widget_id = 0;
 
-      _.each($("#main_col").children(),function(child){
-          widget_id = ( $(child).attr("id") ).replace("widget_item_","");
+      _.each(this.$("#main_col").children(),function(child){
+          widget_id = ( this.$(child).attr("id") ).replace("widget_item_","");
           this.model.get(widget_id).set(
             {col: 0, position: i},
             {silent: true}
@@ -122,8 +131,8 @@ define([
       
       i = 1;
       
-      _.each($("#side_col").children(),function(child){
-          widget_id = ( $(child).attr("id") ).replace("widget_item_","");
+      _.each(this.$("#side_col").children(),function(child){
+          widget_id = ( this.$(child).attr("id") ).replace("widget_item_","");
           this.model.get(widget_id).set(
             {col: 1, position: i},
             {silent: true}
@@ -141,7 +150,23 @@ define([
         $("body").css("cursor","move");
       else
         $("body").css("cursor","auto");
-    }
+    },
+
+    filterViews: function(view){
+      if(!_.any(this.model.models,function(model){
+        return view.model === model;
+      })){
+        view.remove();
+        return false;
+      }
+      return true;
+    },
+
+    filterModels: function(model){
+      return _.any(this.views,function(view){
+        return view.model === model;
+      });
+    },
 
   });
 

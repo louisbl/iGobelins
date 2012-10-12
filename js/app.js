@@ -30,11 +30,14 @@ define([
    });
     
     User.getSession().on("change:authenticated", renderAll);
+    User.getSession().on("error", onError);
+
     widgetsColl.on("change:data", renderAll);
-    widgetsColl.on("add", renderAll);
-    widgetsColl.on("remove", renderAll);
+    widgetsColl.on("sync", renderAll);
+    //widgetsColl.on("remove", renderAll);
 
     widgetsColl.on("all", logEvents);
+    widgetsColl.on("error", onError);
 
     headerView.on("header:login",User.doLogin);
     headerView.on("header:logout",User.doLogout);
@@ -43,12 +46,18 @@ define([
     User.testCookie();
   }
 
+  var onError = function(event){
+    console.log("on error ::: ",event);
+    appView.showError(event)
+  }
+
   var logEvents = function(event){
     console.log("on event ::: ",event);
   }
 
   var renderAll = function(dispatcher,options){
-    console.log("on render ::: ",dispatcher,options );
+    console.log("on render ::: ",dispatcher );
+    User.resetCookie(dispatcher.get("authenticated"));
     appView.render();
   }
 

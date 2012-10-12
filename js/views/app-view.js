@@ -14,6 +14,17 @@ define([
 		initialize: function(options){
 			this.header		= options.headerView;
 			this.widgets	= options.widgetsList;
+			
+			this.$("#toast").dialog({
+				autoOpen: false,
+				modal: true,
+				resizable: false,
+				buttons: {
+					"Ok": function(){
+						$(this).dialog( "close" );
+					},
+				}
+			});
 		},
 
 		render: function(){
@@ -28,8 +39,15 @@ define([
       		$(".button").button();
 		},
 
-		error: function(response){
+		showError: function(response){
 			console.log("app view ::: error ::: ",response);
+			if( _.isString(response) )
+				this.$("#toast p").html(response);
+			else
+				this.$("#toast p").html("erreur lors de la connexion au serveur.");
+			
+			this.$("#toast").dialog("open");
+			
 		}
 
 	});

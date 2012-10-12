@@ -14,7 +14,9 @@ define([
               break;
           case 'update':
               console.log(method);
-              no_send = true;
+              options.data           = model.get("user");
+              options.data.token     = model.get("token");
+              options.data.apiCall   = "updateUserData";
               break;
           case 'delete':
               console.log(method);
@@ -36,7 +38,7 @@ define([
     }
 
     if( no_send ){
-      options.success(model);
+      options.success(_.extend(model,{success : true}));
     }else{
       return WebServSync(options);
     }

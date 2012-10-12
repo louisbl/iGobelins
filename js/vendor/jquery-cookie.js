@@ -30,8 +30,8 @@
 			}
 
 			if (typeof options.expires === 'number') {
-				var days = options.expires, t = options.expires = new Date();
-				t.setDate(t.getDate() + days);
+				var hours = options.expires, t = options.expires = new Date();
+				t.setDate(t.getDate() + hours);
 			}
 
 			value = config.json ? JSON.stringify(value) : String(value);

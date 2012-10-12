@@ -132,9 +132,13 @@ nav ul {
     display: inline-block;
 }
 
-.auth-btn {
+.widget-btns {
     float: right;
     margin: 13px 5px;
+}
+
+.auth-btn {
+    display: inline;
 }
 
 h2 {
@@ -149,6 +153,8 @@ h2 {
     margin: 0 20px;
 }
 
+#compte-dialog label,
+#compte-dialog input,
 #ajout-dialog label,
 #ajout-dialog input {
     display: block;
