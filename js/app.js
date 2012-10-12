@@ -31,7 +31,7 @@ define([
    });
     
     User.getSession().on("change:authenticated", renderAll);
-    User.getSession().on("forgot:resp", onForgotResp);
+    User.getSession().on("forgot:resp", onError);
     User.getSession().on("error", onError);
 
     widgetsColl.on("change:data", renderAll);
@@ -41,16 +41,9 @@ define([
     //widgetsColl.on("all", logEvents);
     widgetsColl.on("error", onError);
 
-    headerView.on("header:login",User.doLogin);
-    headerView.on("header:logout",User.doLogout);
-    headerView.on("header:forgot",User.doForgot);
     headerView.on("header:add",addWidget);
 
     User.testCookie();
-  }
-
-  var onForgotResp = function(response){
-    console.log(response);
   }
 
   var fetchWidget = function(event){
@@ -58,7 +51,7 @@ define([
   }
 
   var onError = function(event){
-    // console.log("on error ::: ",event);
+    console.log("on error ::: ",event);
     appView.showError(event)
   }
 

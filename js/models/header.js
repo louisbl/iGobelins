@@ -8,10 +8,10 @@ define([
 	var HeaderModel = Backbone.Model.extend({
 		
 		idAttribute: "token",
-/*
+
 		initialize: function(){
-			this.set("authenticated",false);
-		},*/
+			_.bindAll(this);
+		},
 
 	    parse : function(response){
 	        if( response.success == true ){
@@ -30,8 +30,7 @@ define([
     		var model = this;
     		var success = options.success;
     		options.success = function(resp, status, xhr) {
-    		  if (success)
-    		  	this.trigger("forgot:resp",resp);
+    		  	model.trigger("forgot:resp",resp.msg);
     		};
     		options.error = Backbone.wrapError(options.error, model, options);
     		return this.sync.call(this, 'forgot', this, options);
@@ -68,6 +67,38 @@ define([
 			$.removeCookie('iGobelins_user');
 		},
 
+		doLogin: function(data){
+			this.save(data,{
+    			wait    : true,
+    			success : this.onUserFetchSuccess,
+    		});
+		},
+
+
+		doLogout: function(){
+			this.destroy({
+    			success : this.onUserFetchSuccess,
+    		});
+		},
+
+
+		doForgot: function(data){
+			console.log("forgot ::: ",data);
+			this.forgot(data)
+		},
+
+		onUserFetchSuccess: function( model, response ){
+			if( response.authenticated ){
+	    		this.setCookie();
+	    	}else{
+	    		this.set({
+	    	      authenticated : response.authenticated,
+	    	      token         : response.token
+	    	    });
+	    	  	this.delCookie();
+	    	}
+    	},
+
 		sync: HeaderSync,
 
 	});
@@ -97,38 +128,8 @@ define([
 
 	function testCookie(){
 		userSession.fetch({
-			success: onUserFetchSuccess,
+			success: userSession.onUserFetchSuccess,
 		});
-	}
-
-	function onUserFetchSuccess( model, response ){
-		if( response.authenticated ){
-	    	model.setCookie();
-	    }else{
-	    	model.set({
-	          authenticated : response.authenticated,
-	          token         : response.token
-	        });
-	      	model.delCookie();
-    	}
-	}
-
-	function doLogin(data){
-		userSession.save(data,{
-    		wait    : true,
-    		success : onUserFetchSuccess,
-    	});
-	}
-
-	function doLogout(){
-		userSession.destroy({
-    		success : onUserFetchSuccess,
-    	});
-	}
-
-	function doForgot(data){
-		console.log("forgot ::: ",data);
-		userSession.forgot(data)
 	}
 
 	return {
@@ -137,8 +138,5 @@ define([
 		getToken    : getToken,
 		testCookie  : testCookie,
 		resetCookie : resetCookie,
-		doLogin     : doLogin,
-		doLogout    : doLogout,
-		doForgot 	: doForgot
 	}
 });

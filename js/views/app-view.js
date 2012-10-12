@@ -9,13 +9,13 @@ define([
 	
 	var AppView = Backbone.View.extend({
 
-		el: $("body"),
+		el: $("#content"),
 
 		initialize: function(options){
 			this.header		= options.headerView;
 			this.widgets	= options.widgetsList;
 			
-			this.$("#toast").dialog({
+			$("#toast").dialog({
 				autoOpen: false,
 				modal: true,
 				resizable: false,
@@ -40,11 +40,11 @@ define([
 		showError: function(response){
 			console.log("app view ::: error ::: ",response);
 			if( _.isString(response) )
-				this.$("#toast p").html(response);
+				$("#toast p").html(response);
 			else
-				this.$("#toast p").html("erreur lors de la connexion au serveur.");
+				$("#toast p").html("erreur lors de la connexion au serveur.");
 			
-			this.$("#toast").dialog("open");
+			$("#toast").dialog("open");
 			
 		}
 

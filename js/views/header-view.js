@@ -109,7 +109,7 @@ define([
 
 		onLoginClicked: function(event){
 			event.preventDefault();
-			this.trigger("header:login",{
+			this.model.doLogin({
 				email : this.$("#login-form #email").val(), 
 				pass  : this.$("#login-form #password").val()
 			});
@@ -118,7 +118,7 @@ define([
 		onForgotClicked: function(event){
 			console.log(event);
 			event.preventDefault();
-			this.trigger("header:forgot",{
+			this.model.doForgot({
 				email : this.$("#login-form #email").val()
 			});
 		},
@@ -128,7 +128,7 @@ define([
 		},
 
 		onLogoutClicked: function(event) {
-			this.trigger("header:logout");
+			this.model.doLogout();
 		},
 		
 	});
