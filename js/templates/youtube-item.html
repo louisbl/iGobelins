@@ -5,13 +5,13 @@
 		<h3><%= item.title %></h3>
 		<p><%= item.author %></p>
 	</header>
-	<section>
+	<section id="youtube_<%= item.id %>">
 		<header>
 			<a href="<%= item.link %>">voir sur youtube</a>
 			<p><%= item.content %></p>
 		</header>
 		<section>
-			<div class="youtube-player"></div>
+			<div id="player_<%= item.id %>" class="youtube-player"></div>
 		</section>
 	</section>
 </article>

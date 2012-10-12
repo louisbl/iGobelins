@@ -98,16 +98,6 @@ define([
         $(".auth-btn").hide();
       }
 
-      this.$(".accordion").accordion({
-        collapsible: true,
-        active: false,
-        heightStyle: 'content'
-      });
-
-      this.$(".tabs").tabs({
-        collapsible: true,
-      });
-
     },
 
     onUpdate: function( event, ui ){

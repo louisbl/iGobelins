@@ -6,8 +6,7 @@ define([
   'text!templates/rss-item.html',
   'text!templates/meteo-item.html',
   'text!templates/youtube-item.html',
-  'text!templates/custom-item.html',
-  //'vendor/jquery-youtube',
+  'vendor/jquery-youtube',
   'jqueryui'
 ], function($, _, Backbone, widgetItemTemplate, rssItemTemplate, meteoItemTemplate, youtubeItemTemplate, customItemTemplate){
   
@@ -37,11 +36,9 @@ define([
           case '3':
             this.template_content = _.template(youtubeItemTemplate);
             break;
-          case '4':
-            this.template_content = _.template(customItemTemplate);
-            break;
         }
       }
+
     },
 
     render:function () {
@@ -83,16 +80,51 @@ define([
           }
         });
 
-/*        this.$(".youtube-player").tubeplayer({
-          width: 640,
-          height: 480,
-          allowFullScreen: "true",
-          initialVideo: "wNQVXJ3hHLg",
-          preferredQuality: "default",
-          autoPlay: true,
-        });*/
+        this.$(".accordion").accordion({
+            collapsible: true,
+            active: false,
+            heightStyle: 'content',
+            beforeActivate: this.onBeforeActivate,
+          });
+  
+        this.$(".tabs").tabs({
+          collapsible: true,
+        });
 
       this.rendered = true;
+    },
+
+    activateYoutube: function(data) {
+      this.$("#player_"+data.id).tubeplayer({
+        width: data.width,
+        allowFullScreen: "true",
+        initialVideo: data.id,
+        preferredQuality: "default",
+        autoPlay: true,
+      });
+    },
+
+    deactivateYoutube: function(data) {
+      console.log("deactivate youtube ::: ");
+      this.$("#player_"+data.id).tubeplayer("stop");
+      this.$("#player_"+data.id).tubeplayer("destroy");
+    },
+
+    onBeforeActivate: function(event,ui) {
+      console.log(event,ui);
+
+      if(ui.newHeader.length > 0 ){
+        var data = {
+          id :(ui.newPanel.attr("id")).replace("youtube_",""),
+          width : ui.newHeader.width()
+        }; 
+        this.activateYoutube(data);
+      }else{
+        var data = {
+          id :(ui.oldPanel.attr("id")).replace("youtube_",""),
+        }; 
+        this.deactivateYoutube(data);
+      }
     },
 
     onCloseButtonClicked: function(event) {
