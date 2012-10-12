@@ -23,6 +23,14 @@ define([
       return this.sync.call(this, 'refresh', this, options);
     },
 
+    getData: function(num){
+      var data = this.get("data");
+      if(num)
+        return _.first(data,num);
+      else
+        return data;
+    },
+
     getOption: function( key ){
       var opt = this.get("option");
       return opt[key];

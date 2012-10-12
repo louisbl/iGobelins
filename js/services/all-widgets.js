@@ -6,7 +6,7 @@ define([
 	 return function (method, model, options) {
     	switch(method){
           case 'update':
-              console.log(method, model, options);
+              // console.log(method, model, options);
               options.data         = {};
               options.data.widget  = model.widget;
               options.data.token   = User.getToken();

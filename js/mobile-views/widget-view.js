@@ -5,7 +5,7 @@ define([
     'text!mobile-templates/widget-rss.html',
     'text!mobile-templates/widget-meteo.html',
     'text!mobile-templates/widget-youtube.html'
-],function($,_,Backbone, rssTemplate, meteoTemplate){
+],function($,_,Backbone, rssTemplate, meteoTemplate, youtubeTemplate){
 	
 	var WidgetView = Backbone.View.extend({
 
@@ -25,7 +25,7 @@ define([
 		},
 
 		render: function(){
-			console.log(this.model.toJSON());
+			// console.log(this.model.toJSON());
  			$(this.el).html(this.template(this.model.toJSON()));
 			return this;
 		},	

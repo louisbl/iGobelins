@@ -11,7 +11,8 @@ define([
 		className: "ui-widget-header",
 
 		events: {
-			"submit #login-form" : "onLoginClicked",
+			"click #signin-btn" : "onLoginClicked",
+			"click #forgot-btn" : "onForgotClicked",
 			"click #compte-btn"  : "onCompteClicked",
 			"click #logout-btn"  : "onLogoutClicked",
 			"click #ajout-btn"   : "onAjoutClicked",
@@ -22,7 +23,7 @@ define([
 		},
 
 		render: function(){
-			console.log( "header view ::: render",this.model.changedAttributes());
+			// console.log( "header view ::: render",this.model.changedAttributes());
 
 			if(this.rendered && !this.model.changedAttributes() )
         		return false;
@@ -83,7 +84,7 @@ define([
 	//UI Events handler
 
 		onCompteUpdate: function(event){
-			console.log(event,this);
+			// console.log(event,this);
 			this.model.save({
 				user : {
 					pseudo : $('#user_pseudo').val(),
@@ -94,7 +95,7 @@ define([
 		},
 
 		onAddWidget: function(event){
-			console.log(event,this);
+			// console.log(event,this);
 			this.trigger("header:add",{
 				name         : $("#titre").val(),
 				type         : $("#type").val(),
@@ -111,6 +112,14 @@ define([
 			this.trigger("header:login",{
 				email : this.$("#login-form #email").val(), 
 				pass  : this.$("#login-form #password").val()
+			});
+		},
+
+		onForgotClicked: function(event){
+			console.log(event);
+			event.preventDefault();
+			this.trigger("header:forgot",{
+				email : this.$("#login-form #email").val()
 			});
 		},
 

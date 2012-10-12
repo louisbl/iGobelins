@@ -28,12 +28,14 @@ define([
         
         switch(this.model.get("type")){
           case '1':
+            this.numItems = 10;
             this.template_content = _.template(rssItemTemplate);
             break;
           case '2':
             this.template_content = _.template(meteoItemTemplate);
             break;
           case '3':
+            this.numItems = 5;
             this.template_content = _.template(youtubeItemTemplate);
             break;
         }
@@ -44,10 +46,10 @@ define([
     render:function () {
 
       if(this.rendered && _.isEmpty(_.omit(this.model.changedAttributes(),'col','position'))){
-        console.log(" no render :: ",this.id);
+        // console.log(" no render :: ",this.id);
         return false;
       }
-      console.log(" do render :: ",this.id);
+      // console.log(" do render :: ",this.id);
 
         this.template = _.template(widgetItemTemplate);
 
@@ -56,7 +58,7 @@ define([
           this.$el.html(
             this.template({
               content: this.template_content({
-                data : this.model.get("data")
+                data : this.model.getData(this.numItems)
               }),
           
               name: this.model.get("name")
@@ -105,13 +107,13 @@ define([
     },
 
     deactivateYoutube: function(data) {
-      console.log("deactivate youtube ::: ");
+      // console.log("deactivate youtube ::: ");
       this.$("#player_"+data.id).tubeplayer("stop");
       this.$("#player_"+data.id).tubeplayer("destroy");
     },
 
     onBeforeActivate: function(event,ui) {
-      console.log(event,ui);
+      // console.log(event,ui);
 
       if(ui.newHeader.length > 0 ){
         var data = {

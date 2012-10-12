@@ -7,7 +7,7 @@ define([
   var app = {};
 
   var initialize = function(){
-    console.log(" device ::: touch ::: ");
+    // console.log(" device ::: touch ::: ");
 
     app = new AppRouter();
 
@@ -32,14 +32,14 @@ define([
       },
 
       home: function(){
-        console.log("home ::: ");
+        // console.log("home ::: ");
         $.mobile.loading('show');
         changePage( new HomeView({model: this.widgetsColl}) );
         $.mobile.loading('hide');
       },
 
       widgetItems: function(id){
-        console.log(this.widgetsColl);
+        // console.log(this.widgetsColl);
         $.mobile.loading('show');
         var widget = this.widgetsColl.get(id);
         widget.fetch({
@@ -53,7 +53,7 @@ define([
 
   var changePage = function (page) {
     
-    console.log("change page ::: ",page);
+    // console.log("change page ::: ",page);
 
      $(page.el).attr('data-role', 'page');
      page.render();
@@ -67,7 +67,7 @@ define([
   }
 
   var logEvents = function(event){
-    console.log("on event ::: ",event);
+    // console.log("on event ::: ",event);
   }
 
   return {

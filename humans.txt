@@ -3,13 +3,15 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Louis Beltramo -- Developer -- @louisbl
 
 # THANKS
 
-    <name>
+    Châu TRAN-QUY
 
 # TECHNOLOGY COLOPHON
 
     HTML5, CSS3
-    jQuery, Modernizr
+    jQuery, jQueryUI, jQueryMobile
+    Modernizr, Requirejs,
+    Backbone.js, Underscore.js

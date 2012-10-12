@@ -29,23 +29,21 @@ define([
 
         this.model.fetch();
       
-      //this.datas    = {};
       this.template = _.template(widgetsListTemplate);
       this.$el.html(
-          //this.template(this.datas)
           this.template()
       );
     },
 
     render: function () {
 
-      console.log(this.views.length);
+      // console.log(this.views.length);
       this.views = _.filter(this.views,this.filterViews,this);
-      console.log(this.views.length);
+      // console.log(this.views.length);
 
       _.each(this.model.models, function(widget){
           
-          console.log(widget.id);
+          // console.log(widget.id);
 
           if(!this.filterModels( widget ) ){
             var view = new WidgetItemView({
@@ -70,7 +68,7 @@ define([
 
 
       if( User.getAuth() ){
-      console.log("user get auth",User.getAuth());
+      // console.log("user get auth",User.getAuth());
 
         $(".drop_col").sortable({
             disabled: false,
@@ -90,7 +88,7 @@ define([
 
         this.onUpdate();
       } else {
-      console.log("user get auth",User.getAuth());
+      // console.log("user get auth",User.getAuth());
         
         $(".drop_col").sortable({
             disabled: true
@@ -102,7 +100,7 @@ define([
 
     onUpdate: function( event, ui ){
 
-      console.log("on update",this.views.length);
+      // console.log("on update",this.views.length);
 
       if( ui != null && ui.sender != null )
           return;

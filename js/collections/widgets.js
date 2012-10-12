@@ -11,7 +11,7 @@ define([
     },
     
     parse : function(response){
-      console.log(response);
+      // console.log(response);
         if( response.success ){
             return response.widgets;
         }else{

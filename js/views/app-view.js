@@ -28,8 +28,6 @@ define([
 		},
 
 		render: function(){
-			//this.$el.empty();
-
 			this.header.render();
 			this.widgets.render();
 

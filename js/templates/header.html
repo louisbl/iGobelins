@@ -9,7 +9,8 @@
 				<form id="login-form">
 					<input name="email" id="email" type="text" value="louis@beltramo.me"/>
 					<input name="password" id="password" type="password" value="123456"/>
-					<input class="button" type="submit" value="sign in"/>
+					<input class="button" type="submit" id="signin-btn" value="sign in"/>
+					<input class="button" type="submit" id="forgot-btn" value="no pass"/>
 				</form>
 			<%} else {%>
 				<span><%= user.pseudo %></span>

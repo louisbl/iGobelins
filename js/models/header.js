@@ -24,6 +24,19 @@ define([
 	        }
 	    },
 
+    	forgot: function(data){
+    		options = {};
+    		options.data = data;
+    		var model = this;
+    		var success = options.success;
+    		options.success = function(resp, status, xhr) {
+    		  if (success)
+    		  	this.trigger("forgot:resp",resp);
+    		};
+    		options.error = Backbone.wrapError(options.error, model, options);
+    		return this.sync.call(this, 'forgot', this, options);
+    	},
+
 		getCookie: function() {
 			var cookie    = $.cookie('iGobelins_user');
               
@@ -76,7 +89,7 @@ define([
 	}
 
 	function resetCookie( auth ){
-		console.log("reset cookie ::: ",auth);
+		// console.log("reset cookie ::: ",auth);
 		if( auth ){
 			userSession.setCookie();
 		}
@@ -113,6 +126,11 @@ define([
     	});
 	}
 
+	function doForgot(data){
+		console.log("forgot ::: ",data);
+		userSession.forgot(data)
+	}
+
 	return {
 		getSession  : getSession,
 		getAuth     : getAuth,
@@ -121,5 +139,6 @@ define([
 		resetCookie : resetCookie,
 		doLogin     : doLogin,
 		doLogout    : doLogout,
+		doForgot 	: doForgot
 	}
 });

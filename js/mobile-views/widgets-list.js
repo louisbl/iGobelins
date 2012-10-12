@@ -13,13 +13,13 @@ define([
 
     render: function () {
 
-      console.log(" widgets list render ::: ",this.$el);
+      // console.log(" widgets list render ::: ",this.$el);
 
        this.$el.empty();
 
       _.each(this.model.models, function(widget){
           
-          console.log(widget.id);
+          // console.log(widget.id);
 
            this.$el.prepend(new WidgetItemView({model:widget}).render().el);
 
