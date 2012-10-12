@@ -7,7 +7,7 @@ define([
   var WidgetCollection = Backbone.Collection.extend({
     
     comparator: function(widget){
-      return widget.get("position");
+      return -widget.get("position");
     },
     
     parse : function(response){
@@ -28,6 +28,12 @@ define([
       options = {};
 
       return this.sync.call(this,"update",this,options);
+    },
+
+    fetchAllData: function(){
+      this.each(function(widget){
+        widget.fetch();
+      },this);
     },
 
     model:WidgetModel,

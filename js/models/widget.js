@@ -7,8 +7,8 @@ define([
     idAttribute: "id_widget",
 
     initialize : function(){
-        if(!this.isNew())
-          this.fetch();
+        //if(!this.isNew())
+        //  this.fetch();
     },
 
     refresh: function(){

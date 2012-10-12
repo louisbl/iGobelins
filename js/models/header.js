@@ -1,5 +1,5 @@
 define([
-		'jquery',
+	   'jquery',
        'backbone',
        'services/sync-header',
        'vendor/jquery-cookie',

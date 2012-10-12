@@ -20,6 +20,7 @@ define([
     model: User.getSession()
   });
 
+
    widgetsList = new WidgetsListView({
     model  : widgetsColl,
    });
@@ -34,7 +35,7 @@ define([
 
     widgetsColl.on("change:data", renderAll);
     widgetsColl.on("sync", renderAll);
-    //widgetsColl.on("remove", renderAll);
+    widgetsColl.on("reset", fetchWidget);
 
     widgetsColl.on("all", logEvents);
     widgetsColl.on("error", onError);
@@ -44,6 +45,10 @@ define([
     headerView.on("header:add",addWidget);
 
     User.testCookie();
+  }
+
+  var fetchWidget = function(event){
+    widgetsColl.fetchAllData();
   }
 
   var onError = function(event){
