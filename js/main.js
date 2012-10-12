@@ -32,8 +32,23 @@ requirejs.config({
 require([
     'jquery',
     'modernizr'
-], function($){
-    
+], function($, Modernizr){
+    /*
+    Modernizr.load({
+        test: Modernizr.touch,
+        yep: 'css/jquery-mobile.min.css',
+        nope: 'css/pepper-grinder/jquery-ui.css'
+    });
+
+    if($("html").hasClass("no-touch")){
+        require(["app"], function (App) {
+            App.initialize();
+        });
+    }else{
+        require(["mobile-app","jquerymobile"], function (App) {
+            App.initialize();
+        });
+    }*/    
     Modernizr.load({
         test: Modernizr.touch,
         nope: 'css/jquery-mobile.min.css',

@@ -20,6 +20,7 @@ define([
 				el: this.$('ul'),
 				model : this.model,
 			});
+
 			return this;
 		},
 

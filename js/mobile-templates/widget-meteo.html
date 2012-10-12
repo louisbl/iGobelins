@@ -1,0 +1,35 @@
+<header data-role="header">
+	<a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+    <h1><%= data.ville %></h1>
+</header>
+<% _.each(data.previsions, function(item){ %>
+<div class="ui-bar ui-bar-b">
+	<h3><%= item.date %></h3>
+</div>
+<section class="ui-grid-c">
+		<div class="ui-block-a">
+			<h4>Matin</h4>
+			<img src="<%= item.pictos_matin %>" />
+			<p><%= item.namepictos_matin %></p>
+			<p><%= item.tempe_matin %> °C</p>
+		</div>
+		<div class="ui-block-b">
+			<h4>Midi</h4>
+			<img src="<%= item.pictos_midi %>" />
+			<p><%= item.namepictos_midi %></p>
+			<p><%= item.tempe_midi %> °C</p>
+		</div>
+		<div class="ui-block-c">
+			<h4>Après-midi</h4>
+			<img src="<%= item.pictos_apmidi %>" />
+			<p><%= item.namepictos_apmidi %></p>
+			<p><%= item.tempe_apmidi %> °C</p>
+		</div>
+		<div class="ui-block-d">
+			<h4>Soir</h4>
+			<img src="<%= item.pictos_soir %>" />
+			<p><%= item.namepictos_soir %></p>
+			<p><%= item.tempe_soir %> °C</p>
+		</div>
+</section>
+<% }); %>

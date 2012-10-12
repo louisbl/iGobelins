@@ -1,0 +1,19 @@
+<header data-role="header">
+	<a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+    <h1><%= name %></h1>
+</header>
+<div data-role="collapsible-set">
+<% _.each(data, function(item){ %>
+<article data-role="collapsible">
+	<h3><%= item.title %></h3>
+	<section>
+		<header>
+			<a href="<%= item.link %>">source</a>
+		</header>
+		<section>
+			<%= item.description %>
+		</section>
+	</section>
+</article>
+<% }); %>
+</div>

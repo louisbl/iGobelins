@@ -1,14 +1,13 @@
 define([
   'collections/widgets',
-  'mobile-views/home-view'
-], function( WidgetsCollection, HomeView ){
+  'mobile-views/home-view',
+  'mobile-views/widget-view',
+], function( WidgetsCollection, HomeView, WidgetView ){
   
   var app = {};
-  var widgetsColl = {};
 
   var initialize = function(){
     console.log(" device ::: touch ::: ");
-    widgetsColl = new WidgetsCollection();
 
     app = new AppRouter();
 
@@ -19,7 +18,8 @@ define([
   var AppRouter = Backbone.Router.extend({
 
     routes: {
-      "" : "home"
+      "" : "home",
+      "widget/:id" : "widgetItems"
     },
 
     initialize: function(){
@@ -28,12 +28,27 @@ define([
             return false;
         });
         this.firstPage = true;
+        this.widgetsColl = new WidgetsCollection();
       },
 
       home: function(){
         console.log("home ::: ");
-        changePage( new HomeView({model: widgetsColl}) );
+        $.mobile.loading('show');
+        changePage( new HomeView({model: this.widgetsColl}) );
+        $.mobile.loading('hide');
       },
+
+      widgetItems: function(id){
+        console.log(this.widgetsColl);
+        $.mobile.loading('show');
+        var widget = this.widgetsColl.get(id);
+        widget.fetch({
+          success:function(data){
+            changePage(new WidgetView({model:data}));
+            $.mobile.loading('hide');
+          }
+        });
+      }
   });
 
   var changePage = function (page) {
