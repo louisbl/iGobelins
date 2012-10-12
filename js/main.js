@@ -24,20 +24,20 @@ requirejs.config({
         },
 
         'modernizr': {
-            exports: 'Modernizr',
+            exports: 'Modernizr'
         }
     }
 });
 
 require([
     'jquery',
-    'modernizr',
-], function($, Modernizr){
+    'modernizr'
+], function($){
     
     Modernizr.load({
         test: Modernizr.touch,
         nope: 'css/jquery-mobile.min.css',
-        yep: 'css/pepper-grinder/jquery-ui.css',
+        yep: 'css/pepper-grinder/jquery-ui.css'
     });
 
     if($("html").hasClass("touch")){

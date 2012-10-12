@@ -1,42 +1,54 @@
 define([
   'collections/widgets',
-  'mobile-views/header-view',
-  'mobile-views/app-view',
-  'mobile-views/widgets-list',
-], function( WidgetsCollection, HeaderView, AppView, WidgetsListView ){
+  'mobile-views/home-view'
+], function( WidgetsCollection, HomeView ){
   
+  var app = {};
   var widgetsColl = {};
-
-  var appView     = {};
-  var headerView  = {};
-  var widgetsList = {};
 
   var initialize = function(){
     console.log(" device ::: touch ::: ");
-
     widgetsColl = new WidgetsCollection();
 
-    headerView = new HeaderView();
+    app = new AppRouter();
 
-    widgetsList = new WidgetsListView({
-      model : widgetsColl,
-    });
-   
-    appView = new AppView({
-      headerView : headerView,
-      widgetsList: widgetsList,
-    });
-
-    widgetsColl.on("change:data", renderAll);
-    widgetsColl.on("sync", renderAll);
-    widgetsColl.on("reset", renderAll);
-
-    widgetsColl.on("all", logEvents);
+    Backbone.history.start();
 
   }
 
-  var renderAll = function(){
-    appView.render();
+  var AppRouter = Backbone.Router.extend({
+
+    routes: {
+      "" : "home"
+    },
+
+    initialize: function(){
+        $('.back').on('click', function(event) {
+            window.history.back();
+            return false;
+        });
+        this.firstPage = true;
+      },
+
+      home: function(){
+        console.log("home ::: ");
+        changePage( new HomeView({model: widgetsColl}) );
+      },
+  });
+
+  var changePage = function (page) {
+    
+    console.log("change page ::: ",page);
+
+     $(page.el).attr('data-role', 'page');
+     page.render();
+     $('body').append($(page.el));
+     var transition = $.mobile.defaultPageTransition;
+     if (this.firstPage) {
+         transition = 'none';
+         this.firstPage = false;
+     }
+     $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
   }
 
   var logEvents = function(event){
