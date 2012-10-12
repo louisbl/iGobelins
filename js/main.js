@@ -33,35 +33,31 @@ require([
     'jquery',
     'modernizr'
 ], function($, Modernizr){
-    /*
-    Modernizr.load({
+    
+/*    Modernizr.load({
         test: Modernizr.touch,
         yep: 'css/jquery-mobile.min.css',
         nope: 'css/pepper-grinder/jquery-ui.css'
-    });
+    });*/
 
-    if($("html").hasClass("no-touch")){
-        require(["app"], function (App) {
+    if($("html").hasClass("touch") && Modernizr.mq('only screen and (min-width: 768px)') ){
+        require(["mobile-app","jquerymobile"], function (App) {
+            loadCss("css/jquery-mobile.min.css");
             App.initialize();
         });
     }else{
-        require(["mobile-app","jquerymobile"], function (App) {
-            App.initialize();
-        });
-    }*/    
-    Modernizr.load({
-        test: Modernizr.touch,
-        nope: 'css/jquery-mobile.min.css',
-        yep: 'css/pepper-grinder/jquery-ui.css'
-    });
-
-    if($("html").hasClass("touch")){
         require(["app"], function (App) {
-            App.initialize();
-        });
-    }else{
-        require(["mobile-app","jquerymobile"], function (App) {
+            loadCss("css/pepper-grinder/jquery-ui.css");
             App.initialize();
         });
     }
+
+
+    var loadCss = function(url) {
+        var link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = url;
+        document.getElementsByTagName("head")[0].appendChild(link);
+    }    
 });

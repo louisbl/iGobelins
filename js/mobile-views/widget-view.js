@@ -3,7 +3,8 @@ define([
     'underscore',
     'backbone',
     'text!mobile-templates/widget-rss.html',
-    'text!mobile-templates/widget-meteo.html'
+    'text!mobile-templates/widget-meteo.html',
+    'text!mobile-templates/widget-youtube.html'
 ],function($,_,Backbone, rssTemplate, meteoTemplate){
 	
 	var WidgetView = Backbone.View.extend({
@@ -15,6 +16,9 @@ define([
         	    break;
         	  case '2':
         	    template_content = meteoTemplate;
+        	    break;
+        	  case '3':
+        	    template_content = youtubeTemplate;
         	    break;
         	}
 			this.template = _.template(template_content);

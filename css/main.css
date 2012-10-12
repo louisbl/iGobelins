@@ -107,6 +107,16 @@ nav ul {
    Author's custom styles
    ========================================================================== */
 
+.youtube {
+    height: 120px;
+}
+
+.thumb {
+    float : left;
+    clear: left;
+    margin: 10px;
+}
+
 .drop_col {
     padding: 5px;
     min-height: 100px;
